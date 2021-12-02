@@ -1,0 +1,56 @@
+We can use an EQUIPMENT class as the parent interface . Then , Create two different interface for CAR & PLANE. 
+Then inherits different car models from CAR class & different plane models from PLANE class. 
+By this design pattern, We can differantiate between car & plane models more fruitfully. 
+
+interface stampingEquipment{
+    int no_of_wheels()
+    int no_of_door()
+    int no_of_hood()
+    int no_of_window()
+    int no_of_seats()
+    string type
+}
+
+class CAR extends stampingEquipment{
+    public int no_of_wheels = as needed(1k, 2k)
+    public int no_of_door = as needed(1k, 2k)
+    public int no_of_hood = as needed(1k, 2k)
+    public int no_of_window = as needed(1k, 2k)
+    public int no_of_seats = as needed (1k, 2k)
+    boolean driver
+    boolean license
+    string model
+}
+
+class PLANE extends stampingEquipment{
+    public int no_of_wheels = as needed(1k, 2k)
+    public int no_of_door = as needed(1k, 2k)
+    public int no_of_window = as needed(1k, 2k)
+    public int no_of_seats = as needed (1k, 2k)
+    int pilot
+    int airhostess
+    int perachute
+    string model
+}
+
+class LAMBOGHINI extends CAR{
+    public int no_of_wheels = 4
+    public int no_of_door = 4
+    public int no_of_hood = 2
+    public int no_of_window = 4
+    public int no_of_seats = 4
+    public boolean driver = true
+    public boolean license = true
+    public string model = "Aventador"
+}
+
+class BOEING extends PLANE{
+    public int no_of_wheels = 6
+    public int no_of_door = 6
+    public int no_of_window = ±116
+    public int no_of_seats = 174
+    public int pilot = 2
+    public int airhostess = 12
+    public int perachute = (no_of_seats + airhostess + pilot)
+    public string model = "Boeing 737"
+}

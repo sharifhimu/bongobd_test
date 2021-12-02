@@ -1,0 +1,41 @@
+
+.btn-sty{
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-sty:hover{
+    animation: wave 1s ;
+    animation-iteration-count: infinite;
+}
+
+@keyframes wave {
+    0%{
+        transform: translateY(2px);
+    }
+    50%{
+        transform: translateY(-2px);
+    }
+    100%{
+        transform: translateY(2px);
+    }
+}
+
+.info-div{
+    box-shadow: 0 0 6px 0px rgba(0,0,0,.2);
+    width: 19rem;
+    text-align: left;
+    /* padding: 5px; */
+}
+
+.hidden{
+    display: none;
+}
+
+@media (max-width: 1240px) {
+    .info-div{
+        width: 10rem;
+    }
+}

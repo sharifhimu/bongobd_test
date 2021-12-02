@@ -1,0 +1,24 @@
+ 
+ interface Iframe{
+    func onYouTubeIframeAPIReady()
+    method media_referance.playerInfo.duration
+    method media_referance.playerInfo.currentTime
+    method media_referance.playerInfo.seekTo
+    method media_referance.playVideo()
+    method media_referance.pauseVideo()
+    method media_referance.stopVideo()
+ }
+
+ interface media_player extends Iframe{
+    media_referance player;
+    func onInput(result => new_url)
+    method player.seekTo( IF player.start = true THEN player.playerInfo.currentTime ± 10 
+                          ELSE player.playerInfo.currentTime ) 
+    method setInterval ( IF player.start = true THEN update_time(player.playerInfo.currentTime)
+                         ELSE null )
+    method player.playVideo( IF player.pause = true THEN player.playVideo()  )
+    method player.pauseVideo( IF player.play = true THEN player.pauseVideo()  )
+    method player.stopVideo( IF player.play = true THEN player.stopVideo()  )
+    func load(embed(new_url))
+    func formatTime (  result => ( formatted_duration, formatted_currentTime ) )
+ }

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title> Video player </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Videoplayer.css">
+
+    <script type="text/javascript" >
+
+    var tag = document.createElement('script');
+    tag.id = 'iframe-demo';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('existing-iframe-example', {
+        events: {
+        'onError': warn
+        }
+        });
+    }
+
+    const formatTime = (time) => {
+        time = Math.round(time);
+        var minutes = Math.floor(time / 60),
+        seconds = time - minutes * 60;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        return minutes + ":" + seconds;
+    }
+
+    // let duration = document.getElementById('duration');
+    window.onload = function dura() {
+    document.getElementById('duration').innerHTML = formatTime(player.playerInfo.duration) ;
+    };
+    
+    
+    const backward = () => {
+        console.log('player', player.playerInfo );
+        player.seekTo(player.playerInfo.currentTime-10)
+
+    }
+
+    const forward = () => {
+        player.seekTo(player.playerInfo.currentTime+10)
+    }
+    
+    let time_update = setInterval(function(){
+        // console.log('called', player.playerInfo.currentTime, player.playerInfo.duration );
+        document.getElementById('current').innerHTML = formatTime(player.playerInfo.currentTime);
+    }, 1000)
+
+
+
+    const play = () => {
+        // console.log('play', player );
+        player.playVideo();
+
+        document.getElementById('play_toggle').classList.remove('fa-play')
+        document.getElementById('play_toggle').classList.add('fa-pause')
+        
+    }
+    
+    const pause = () => {
+        player.pauseVideo();
+        
+        document.getElementById('play_toggle').classList.remove('fa-pause')
+        document.getElementById('play_toggle').classList.add('fa-play')
+    }
+    
+    const play_toggle = () => {
+        
+        // console.log('inside');
+        // console.log('inner', document.getElementById('play_toggle').className, document.getElementById('play_toggle').className.includes('fa-pause') );
+
+        if( document.getElementById('play_toggle').className.includes('fa-pause') ){
+            // console.log('paused');
+            pause();
+        }
+        else{
+            // console.log('start playeing');
+            play();
+        }
+
+    }
+
+    const stop = () => {
+        player.stopVideo();
+        player.seekTo(0);
+        player.pauseVideo();
+        
+    }
+
+
+    const handleValueChange = () => {
+        console.log('called', document.getElementById("input_link").value.split('/')[3].substr( 8, 11 ) );
+    }
+    
+    const load = () => {
+        player.stopVideo()
+        console.log( "https://www.youtube.com/embed/" +  document.getElementById("input_link").value.split('/')[3].substr( 8, 11 ) + "?enablejsapi=1&autoplay=1&controls=0"  );
+        document.getElementById("existing-iframe-example").src = "https://www.youtube.com/embed/" +  document.getElementById("input_link").value.split('/')[3].substr( 8, 11 ) + "?enablejsapi=1&autoplay=1&controls=0" ;
+    }
+
+    const warn = () => {
+        alert('this video cannot be played, maybe embeding is disabled by this videos owner');
+    }
+
+    const hideinfo = () => {
+        console.log( document.getElementsByClassName("info-div")[0].classList );
+        if( document.getElementsByClassName("info-div")[0].classList.contains('hidden') ){
+            document.getElementsByClassName("info-div")[0].classList.remove('hidden');
+        }
+        else{
+            document.getElementsByClassName("info-div")[0].classList.add('hidden');
+        }
+    }
+
+    </script>
+</head>
+
+<body>
+
+<center>
+    
+    <div style="margin-bottom: 2rem;display: flex;align-items: center;justify-content: center;">
+    <input type="text" id="input_link" placeholder="input link of youtube video"  oninput="handleValueChange()" style="margin-right: 10px;width: 300px;"   >
+    <button onclick="load()" style="background-color: #37474F;color: white;border-radius: .2rem;border: none; box-shadow: 0 0 2px 0 rgba(0,0,0,.5);cursor: pointer;font-size: 15px;" > Load </button>
+    </div>
+    
+    <div style="position: relative;" >
+
+        <div style="position: absolute;right: 0;top: 0;bottom: 0;" > 
+            <div style="text-align: left;margin-bottom: 5px;" >
+                <i  class="fa fa-play" style="box-shadow: 0 0 5px 0px rgba(0,0,0,.2);padding: 1px;border-radius: .1rem;cursor: pointer;"  onclick="hideinfo()" ></i>
+            </div>
+            <div  class="info-div"  >
+            <div style="padding: 8px;">
+            <strong> 1. </strong>  For first video you have to also click the video play button in middle of the video after clicking custom play button <br/>
+            <strong> 2. </strong>  HTML Video element can not able to load online video, something is wrong. So, I had to use iframe element.<br/>
+            <strong> 3. </strong>  After giving a link to load, if video is not available than author restricted embed settings of the video <br/>
+            <strong> 4. </strong>  Using iframe one have to make different functionality for each media(youtube, vimeo, dailymotion etc) as their 
+            video streaming system is different from each other, So I focused on youtube video streaming . (vimeo or dailymotion video will not stream or will have problem to stream). There are a variety of media player package available where these functionality has been handled fruitfully <br/>
+            </div>
+            </div>
+        </div>
+
+        <!-- &controls=0 -->
+        <iframe id="existing-iframe-example"
+        width="640" height="360"
+        src="https://www.youtube.com/embed/wynwgpaINII?enablejsapi=1&autoplay=1&controls=0&loop=1"
+        frameborder="0"
+        allowfullscreen
+        style="border: solid 4px #37474F; border-radius: .5rem;"
+        ></iframe>
+
+        <div style="position: absolute;top: 86%;bottom: 0;left: 0;right: 0;">
+            
+            <div style="display: flex;justify-content: center;align-items: center;">
+            <div style="background-color: #37474F   ; display: flex;border-radius: .2rem;">
+            <button onclick="backward()" class="fa fa-backward btn-sty" >  </button>
+            <button onclick="play_toggle()" class="btn-sty" > <i id='play_toggle' class="fa fa-play "></i> </button>
+            <!-- <button onclick="pause()" > pause </button> -->
+            <button onclick="forward()"  class="fa fa-forward btn-sty" >  </button>
+
+            <div style="display: flex;align-items: baseline;background-color: white;border-radius: .5rem;padding: 5px;cursor: none;">
+                <p id="current" style="margin: 0;"  > running </p> / <p id="duration" style="margin: 0;" > duration  </p>
+            </div>
+            <button onclick="stop()" class="fa fa-stop btn-sty" >  </button>
+            </div>
+            </div>
+
+        </div>
+    </div>
+
+    </center>
+
+</body>
+
+
+</html>

@@ -1,0 +1,56 @@
+
+interface Vehicle {
+    int set_num_of_wheels()
+    int set_num_of_passengers()
+    boolean has_gas()
+}
+
+ans: 
+If we create an interface CAR which will extends Vehicle then we can use public class Vehicle's variable's in child class CAR. 
+So, if we declare set_num_of_wheels = 4 which is constant for every car,  
+                  set_num_of_passengers = 2/4/8 as we need our cars internal space 
+                  & has_gas = true/false . 
+IF boolean has_gas is true THEN Vehicle start method can be called 
+ELSE IF  boolean has_gas is false THEN Vehicle start method cann't be called .
+Also a car has some different variables such as boolean driver = true /false
+                                                boolean license = true / false
+
+class CAR extends Vehicle {
+    public int set_num_of_wheels = 4
+    public int set_num_of_passengers = 2 || 4 || 8
+    private boolean driver
+    private boolean license
+    public bool has_gas ( IF has_gas =  true THEN 
+                            IF driver = true THEN 
+                                IF license = true THEN 
+                                    Vehicle start method called
+                            ELSE Vehicle start method cann't be called
+                            ELSE Vehicle start method cann't be called
+                        ELSE IF has_gas =  false THEN Vehicle start method cann't be called
+                        )
+}
+
+On the other hand, If we create an interface PLANE which will extends Vehicle then we can use public class Vehicle's variable's in child class PLANE. 
+So, if we declare set_num_of_wheels = 4 || 6 || 10 || 12 || 14 || 32 as planes wheels depends on plane's size,  
+                  set_num_of_passengers = 800 || 1000 || 1000+ as we need our plane's internal space 
+                  & has_gas = true/false . 
+IF boolean has_gas is true THEN Vehicle start method can be called 
+ELSE IF  boolean has_gas is false THEN Vehicle start method cann't be called .
+Also, a plane has some different variables such as no_of_pilot = 1 || 2, 
+                                                   no_of_airhostess = 4 || 6
+                                                   (no_of_parachute === (set_num_of_passengers + no_of_airhostess + no_of_pilot )) || Vehicle start method cann't be called
+
+class PLANE extends Vehicle {
+    public int set_num_of_wheels = 4 || 6 || 10 || 12 || 14 || 32
+    public int set_num_of_passengers = 800 || 1000 || 1000+
+    private int no_of_pilot = 1 || 2
+    private int no_of_airhostess = 4 || 6
+    private int no_of_parachute
+    public bool has_gas ( IF has_gas =  true THEN 
+                            IF (no_of_parachute === (set_num_of_passengers + no_of_airhostess + no_of_pilot )) THEN
+                            Vehicle start method called
+                            ELSE Vehicle start method cann't be called
+                        ELSE IF has_gas =  false THEN Vehicle start method cann't be called
+                        )
+}
+

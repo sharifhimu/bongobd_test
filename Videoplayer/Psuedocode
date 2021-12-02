@@ -1,0 +1,18 @@
+
+BEGIN
+1. Click Play button (For, 1st run , have to click youtube's start button also)
+2. Default source file will start to run
+3. IF
+    playing THEN Click pause button to pause
+   ELSE IF 
+    pause THEN Click play button to play   
+4. click forward/backward button to rewind
+5. click stop button to stop.
+6. copy video url in input field to load new video
+7. click load
+8. IF 
+    url is embedded then play
+    go to step 1
+   ELSE
+    show video unavailable
+END
